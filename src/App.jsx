@@ -26,7 +26,7 @@ const App = () => {
   const [qrValue, setQrValue] = useState("");
   const [currentTime, setCurrentTime] = useState("");
   const [currentDate, setCurrentDate] = useState("");
-  const [location] = useState("Córdoba, Argentina");
+  const [location] = useState("Buenos Aires, Argentina");
 
   // refs
   const qrValueRef = useRef("");

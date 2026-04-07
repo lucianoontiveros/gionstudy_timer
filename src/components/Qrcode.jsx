@@ -14,7 +14,7 @@ const Qrcode = ({ token }) => {
         {
           errorCorrectionLevel: "H",
           color: {
-            dark: "#0EF2DF", // Verde turquesa
+            dark: "#FD99BE", // Rosa
             light: "#000000", // Fondo negro
           },
         },

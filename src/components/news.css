@@ -4,8 +4,8 @@
 :root {
   --color-fondo-mensaje: #000000;
   --color-texto-mensaje: rgba(226, 238, 237, 0.989);
-  --color-acento: rgba(14, 242, 223, 0.989);
-  --color-acento-secundario: rgba(6, 224, 240, 0.989);
+  --color-acento: rgba(253, 153, 190, 0.989);
+  --color-acento-secundario: rgba(240, 120, 160, 0.989);
 
   --sombra-acento: 0 0 15px var(--color-acento),
     0 0 20px var(--color-acento-secundario);

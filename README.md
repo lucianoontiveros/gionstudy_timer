@@ -179,3 +179,4 @@ Desarrollado con ❤️ para la comunidad de Cuarto de Chenz
 ### 7. Experiencia del Usuario (UX)
 - La interfaz de usuario es atractiva.
 - Se recomienda realizar pruebas de usabilidad con usuarios reales.
+# gionstudy_timer

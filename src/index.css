@@ -12,17 +12,17 @@
   --color-fondo-negro: #000000;
 
   /* Colores de acento */
-  --color-acento: rgba(14, 242, 223, 0.989);
-  --color-acento-suave: rgba(14, 242, 223, 0.7);
+  --color-acento: rgba(253, 153, 190, 0.989);
+  --color-acento-suave: rgba(240, 120, 160, 0.7);
 
   /* Sombras */
-  --sombra-texto-principal: 5px 5px 10px var(--color-fondo-negro);
-  --sombra-texto-secundario: 2px 2px 5px var(--color-fondo-negro);
-  --sombra-borde-acento: 0 0 15px var(--color-acento),
-    0 0 20px rgba(6, 224, 240, 0.989);
+  --sombra-texto-principal: 5px 5px 10px rgba(253, 153, 190, 0.3);
+  --sombra-texto-secundario: 2px 2px 5px rgba(253, 153, 190, 0.2);
+  --sombra-borde-acento: 0 0 15px rgba(253, 153, 190, 0.8),
+    0 0 20px rgba(240, 120, 160, 0.6);
 
   /* Bordes */
-  --borde-acento: var(--color-acento) 5px inset;
+  --borde-acento: rgba(253, 153, 190, 0.989) 5px inset;
 
   /* Fuentes */
   --fuente-principal: "Sawarabi Gothic", sans-serif;
@@ -100,7 +100,7 @@ body {
 }
 
 .elemente_3_b {
-  background-image: var(--fondo-bambu);
+  background-image: none;
   background-position: top;
   border-radius: 1rem;
   background-color: var(--color-fondo-principal);
@@ -235,15 +235,23 @@ body {
 @keyframes brillo {
   0% {
     opacity: 1;
-    color: var(--color-acento);
+    color: rgb(253, 153, 190);
+  }
+  25% {
+    opacity: 0.8;
+    color: rgb(240, 120, 160);
   }
   50% {
-    opacity: 0.7;
-    color: var(--color-acento-suave);
+    opacity: 0.6;
+    color: rgb(220, 100, 140);
+  }
+  75% {
+    opacity: 0.8;
+    color: rgb(235, 110, 150);
   }
   100% {
     opacity: 1;
-    color: var(--color-acento);
+    color: rgb(253, 153, 190);
   }
 }
 
