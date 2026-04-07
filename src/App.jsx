@@ -293,7 +293,7 @@ const App = () => {
   // Efecto que reacciona cuando timeLeft llega a 0 por fuera del tick (solo para mensaje final)
   useEffect(() => {
     if (timeLeft <= 0 && phase === "🌳HEMOS TERMINADO🌳" && isRunningRef.current && Client.current) {
-      Client.current.say("cuartodechenz", "🌳 ¡Hemos terminado la sesión! ¡Gracias por participar!");
+      Client.current.say("gionstudy", "🌳 ¡Hemos terminado la sesión! ¡Gracias por participar!");
     }
   }, [timeLeft, phase]);
 
@@ -354,7 +354,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
   // Solo enviar si hay mensaje definido
   if (phaseMessage) {
     Client.current.say(
-      "cuartodechenz",
+      "gionstudy",
       `⏱️ ¡Temporizador iniciado! ${phaseMessage} en marcha.`
     );
   }
@@ -385,7 +385,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
 
       if (Client.current) {
         const remainingStr = formatTime(remaining);
-        Client.current.say("cuartodechenz", `⏸️ Temporizador pausado con ${remainingStr} restantes. Usa !start para reanudar.`);
+        Client.current.say("gionstudy", `⏸️ Temporizador pausado con ${remainingStr} restantes. Usa !start para reanudar.`);
       }
     }
 
@@ -427,14 +427,14 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
       const isVip = tags.badges?.vip;
       const isMod = tags.badges?.moderator;
 
-      if (!greetedUsers.current.has(username) && username.toLowerCase() !== 'cuartodechenz' && username.toLowerCase() !== 'brunispet') {
+      if (!greetedUsers.current.has(username) && username.toLowerCase() !== 'gionstudy' && username.toLowerCase() !== 'brunispet') {
         greetedUsers.current.add(username);
         const mensajeGeneral = `¡Qué alegría verte por aquí, ${username}! Espero que tengas una jornada productiva. 📚✨`;
         const mensajeSubs = isSub ? `👑 ¡Mil gracias por apoyar este canal! Gracias a ti, las croquetas para mí y los michis están aseguradas. 🐱💕` : `Espero que tengas una excelente sesión de estudio. ¡Mucho ánimo! 💪📖`;
         const mensajeMod = isMod ? `⚔️ ¡Nuestra comunidad está en buenas manos contigo como mod! Gracias por ayudar a que esto sea un espacio increíble. ✨` : "";
         const mensajeVid = isVip && username !== "mohcitrus" ? `💎 ¡Nos encanta verte por aquí! Tu presencia hace que estos días sean aún más especiales. 🌟` : "";
 
-        Client.current.say("cuartodechenz", mensajeGeneral + mensajeSubs + mensajeMod + mensajeVid);
+        Client.current.say("gionstudy", mensajeGeneral + mensajeSubs + mensajeMod + mensajeVid);
       }
 
       if (!message.startsWith("!")) return;
@@ -443,16 +443,16 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
       if (command === "!sala" || command === "!code" || command === "!room" || command === "!salita") {
         if (qrValueRef.current) {
           Client.current.say(
-            "cuartodechenz",
+            "gionstudy",
             `🌳CÓDIGO: ${qrValueRef.current.toUpperCase()} - Únete a la sala: https://forestapp.cc/join-room?token=${qrValueRef.current} Por favor desactiva la opción concentración profunda. Si no sabes como hacerlo, te ensañamos. De lo contrario puedes pedirnos una salita con esa funcionalidad activa`
           );
         } else {
-          Client.current.say("cuartodechenz", "No hay un código configurado. Usa !codigo [token] para establecer uno.");
+          Client.current.say("gionstudy", "No hay un código configurado. Usa !codigo [token] para establecer uno.");
         }
         return;
       }
 
-      if (tags.username !== "cuartodechenz" && !tags.mod) {
+      if (tags.username !== "gionstudy" && !tags.mod) {
         return; // ignorar comandos administrativos
       }
 
@@ -496,7 +496,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
               setIsRunning(false);
 
               if (Client.current)
-                Client.current.say("cuartodechenz", `/me 🧭 Cambiado a modo MANUAL. Usa !start para reanudar cuando quieras.`);
+                Client.current.say("gionstudy", `/me 🧭 Cambiado a modo MANUAL. Usa !start para reanudar cuando quieras.`);
 
               // limpiar bandera auto
               hasAutoStartedRef.current = false;
@@ -505,7 +505,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
               hasAutoStartedRef.current = false;
 
               if (Client.current)
-                Client.current.say("cuartodechenz", `/me 🤖 Cambiado a modo AUTOMÁTICO. Usa !start para iniciar y luego seguirá solo hasta completar el circuito.`);
+                Client.current.say("gionstudy", `/me 🤖 Cambiado a modo AUTOMÁTICO. Usa !start para iniciar y luego seguirá solo hasta completar el circuito.`);
             }
 
             saveState();
@@ -553,7 +553,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
             // 6) Aviso al chat
             if (Client.current) {
               Client.current.say(
-                "cuartodechenz",
+                "gionstudy",
                 "🔄 Timer y bot reiniciados. Iniciando en fase INICIANDO."
               );
             }
@@ -566,7 +566,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
         case "!codigo":
           const token = args.slice(1).join(" ");
           if (!token) {
-            Client.current.say("cuartodechenz", "❌ Debes proporcionar un token válido. Ejemplo: !codigo [token]");
+            Client.current.say("gionstudy", "❌ Debes proporcionar un token válido. Ejemplo: !codigo [token]");
             return;
           }
           qrValueRef.current = token;
