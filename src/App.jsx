@@ -8,9 +8,9 @@ import Qrcode from "./components/Qrcode";
 import campana from "./components/utils/campana.mp3";
 
 const DURATIONS = {
-  INICIANDO: 10 * 60,
-  PRODUCTIVO: 60 * 60,
-  DESCANSO: 10 * 60,
+  INICIANDO: 5 * 60,
+  PRODUCTIVO: 90 * 60,
+  DESCANSO: 5 * 60,
   TERMINADO: 0,
 };
 
