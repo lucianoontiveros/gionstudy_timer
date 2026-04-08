@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import QRCode from "qrcode";
 import "./qrcode.css";
 
-const Qrcode = ({ token }) => {
+const Qrcode = memo(({ token }) => {
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -47,6 +47,6 @@ const Qrcode = ({ token }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Qrcode;

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import './news.css';
 
-const News = ({ message }) => {
+const News = memo(({ message }) => {
     const [displayedMessage, setDisplayedMessage] = useState('');
 
     useEffect(() => {
@@ -26,6 +26,6 @@ const News = ({ message }) => {
             </div>
         ) : null
     );
-};
+});
 
 export default News;

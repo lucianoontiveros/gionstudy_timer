@@ -102,6 +102,13 @@ const App = () => {
   useEffect(() => {
     audioRef.current = new Audio(campana);
     audioRef.current.preload = "auto";
+    
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+    };
   }, []);
 
   // Actualizar referencias de estados que usamos en refs
@@ -427,10 +434,10 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
       const isVip = tags.badges?.vip;
       const isMod = tags.badges?.moderator;
 
-      if (!greetedUsers.current.has(username) && username.toLowerCase() !== 'gionstudy' && username.toLowerCase() !== 'brunispet') {
+      if (!greetedUsers.current.has(username) && username.toLowerCase() !== 'gionstudy' && username.toLowerCase() !== 'lunamoramg' && username.toLowerCase() !== 'cuartodechenz') {
         greetedUsers.current.add(username);
         const mensajeGeneral = `¡Qué alegría verte por aquí, ${username}! Espero que tengas una jornada productiva. 📚✨`;
-        const mensajeSubs = isSub ? `👑 ¡Mil gracias por apoyar este canal! Gracias a ti, las croquetas para mí y los michis están aseguradas. 🐱💕` : `Espero que tengas una excelente sesión de estudio. ¡Mucho ánimo! 💪📖`;
+        const mensajeSubs = isSub ? `👑 ¡Mil gracias por apoyar este canal! Gracias a ti, las croquetas para mi perrito Franchu y mis gatitos Mora y Luna están aseguradas. 🐱💕` : `Espero que tengas una excelente sesión de estudio. ¡Mucho ánimo! 💪📖`;
         const mensajeMod = isMod ? `⚔️ ¡Nuestra comunidad está en buenas manos contigo como mod! Gracias por ayudar a que esto sea un espacio increíble. ✨` : "";
         const mensajeVid = isVip && username !== "mohcitrus" ? `💎 ¡Nos encanta verte por aquí! Tu presencia hace que estos días sean aún más especiales. 🌟` : "";
 
@@ -452,7 +459,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
         return;
       }
 
-      if (tags.username !== "gionstudy" && !tags.mod) {
+      if (tags.username !== "gionstudy" && tags.username !== "cuartodechenz" && !tags.mod) {
         return; // ignorar comandos administrativos
       }
 
