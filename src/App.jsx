@@ -437,7 +437,7 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
       if (!greetedUsers.current.has(username) && username.toLowerCase() !== 'gionstudy' && username.toLowerCase() !== 'lunamoramg' && username.toLowerCase() !== 'cuartodechenz') {
         greetedUsers.current.add(username);
         const mensajeGeneral = `¡Qué alegría verte por aquí, ${username}! Espero que tengas una jornada productiva. 📚✨`;
-        const mensajeSubs = isSub ? `👑 ¡Mil gracias por apoyar este canal! Gracias a ti, las croquetas para mi perrito Franchu y mis gatitos Mora y Luna están aseguradas. 🐱💕` : `Espero que tengas una excelente sesión de estudio. ¡Mucho ánimo! 💪📖`;
+        const mensajeSubs = isSub ? `👑 ¡Mil gracias por apoyar este canal! Gracias a ti, las croquetas para mi perrito Franchu y mis gatitos Mora y Luna están aseguradas. 🐱💕` : `A sacarle provecho a esta sesión de estudio. ¡Mucho ánimo! 💪📖`;
         const mensajeMod = isMod ? `⚔️ ¡Nuestra comunidad está en buenas manos contigo como mod! Gracias por ayudar a que esto sea un espacio increíble. ✨` : "";
         const mensajeVid = isVip && username !== "mohcitrus" ? `💎 ¡Nos encanta verte por aquí! Tu presencia hace que estos días sean aún más especiales. 🌟` : "";
 
