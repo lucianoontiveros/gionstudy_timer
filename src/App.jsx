@@ -7,6 +7,8 @@ import News from "./components/News";
 import Qrcode from "./components/Qrcode";
 import campana from "./components/utils/campana.mp3";
 
+
+// Dastos de configuración del timer por instancias.. 
 const DURATIONS = {
   INICIANDO: 10 * 60,
   PRODUCTIVO: 90 * 60,
@@ -425,6 +427,10 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
   // Twitch controller y comandos
   useEffect(() => {
     Client.current = twitch_controller();
+    if (!Client.current) {
+      console.warn('Twitch client not initialized. Skipping Twitch integration.');
+      return;
+    }
     Client.current.on("message", (channel, tags, message, self) => {
       if (self) return;
       const args = message.split(" ");
@@ -529,6 +535,9 @@ if (Client.current && phase !== "🌳HEMOS TERMINADO🌳") {
             } catch (e) {}
 
             Client.current = twitch_controller(); // 🔥 Reconexión REAL
+            if (!Client.current) {
+              console.warn('Failed to reconnect Twitch client during reset.');
+            }
             hasSentInitialMessage.current = false;
             // 1) Limpiar estado persistido
             localStorage.removeItem("pomodoroState");
