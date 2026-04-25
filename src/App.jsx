@@ -8,9 +8,9 @@ import Qrcode from "./components/Qrcode";
 import campana from "./components/utils/campana.mp3";
 
 const DURATIONS = {
-  INICIANDO: 5 * 60,
+  INICIANDO: 10 * 60,
   PRODUCTIVO: 90 * 60,
-  DESCANSO: 5 * 60,
+  DESCANSO: 10 * 60,
   TERMINADO: 0,
 };
 
@@ -19,7 +19,7 @@ const App = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [phase, setPhase] = useState("INICIANDO");
   const [pomodorosCompleted, setPomodorosCompleted] = useState(1);
-  const [totalPomodoros, setTotalPomodoros] = useState(4);
+  const [totalPomodoros, setTotalPomodoros] = useState(7);
   const [mode, setMode] = useState("auto");
   const [backgroundImage, setBackgroundImage] = useState("descanso");
   const [aviso, setAviso] = useState("");
