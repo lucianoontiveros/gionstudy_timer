@@ -8,7 +8,7 @@ import Qrcode from "./components/Qrcode";
 import campana from "./components/utils/campana.mp3";
 
 
-// Dastos de configuración del timer por instancias.. 
+// Datos de configuración del timer por instancias.. 
 const DURATIONS = {
   INICIANDO: 10 * 60,
   PRODUCTIVO: 90 * 60,
