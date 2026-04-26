@@ -13,7 +13,7 @@ Este proyecto implementa un temporizador Pomodoro interactivo para el canal de T
   - `🌳HEMOS TERMINADO🌳`: Estado final al completar todos los pomodoros
 
 - **Configuración Actual**:
-  - **Total de Pomodoros**: 4 pomodoros por sesión
+  - **Total de Pomodoros**: 7 pomodoros por sesión
   - **Tiempo Productivo**: 90 minutos por pomodoro
   - **Tiempo de Descanso**: 10 minutos
   - **Tiempo de Inicio**: 10 minutos
