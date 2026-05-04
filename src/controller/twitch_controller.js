@@ -17,12 +17,22 @@ export const twitch_controller = () => {
   });
 
   const opts = {
-    options: { debug: false, }, 
+    options: { 
+      debug: false,
+      updateEmotesetsTimer: 0, // Desactivar carga de emoticones para evitar CORS
+      skipUpdatingEmotesets: true, // Omitir actualización de emoticones
+    }, 
     identity: {
       username: VITE_APP_USERNAME,
       password: VITE_APP_PASSWORD,
     },
     channels: [VITE_APP_CHANNELS],
+    connection: {
+      secure: true,
+      reconnect: true,
+      maxReconnectAttempts: 5,
+      reconnectDecay: 1.5
+    }
   };
 
   const new_client_twitch = new tmi.Client(opts);
