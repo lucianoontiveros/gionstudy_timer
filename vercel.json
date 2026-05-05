@@ -6,11 +6,32 @@
       "headers": [
         {
           "key": "X-Frame-Options",
-          "value": "ALLOWALL"
+          "value": "SAMEORIGIN"
         },
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors *; default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: *; connect-src 'self' wss://*.tmi.twitch.tv wss://*.twitch.tv https://*.twitch.tv https://*.ttvnw.net;"
+          "value": "frame-ancestors 'self'; default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src 'self' wss://*.tmi.twitch.tv wss://*.twitch.tv https://*.twitch.tv https://*.ttvnw.net; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization, X-Requested-With"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     }
@@ -20,5 +41,10 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }
