@@ -4,6 +4,7 @@ export const twitch_controller = () => {
   const VITE_APP_USERNAME = import.meta.env.VITE_APP_USERNAME;
   const VITE_APP_PASSWORD = import.meta.env.VITE_APP_PASSWORD;
   const VITE_APP_CHANNELS = import.meta.env.VITE_APP_CHANNELS;
+  const VITE_APP_CHANNEL = import.meta.env.VITE_APP_CHANNEL || VITE_APP_CHANNELS;
 
   // Check if required environment variables are available
   if (!VITE_APP_USERNAME || !VITE_APP_PASSWORD || !VITE_APP_CHANNELS) {
