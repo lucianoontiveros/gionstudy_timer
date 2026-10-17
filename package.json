@@ -29,6 +29,7 @@
     "imagemin": "^9.0.1",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^10.0.0",
+    "prop-types": "^15.8.1",
     "vite": "6.4.1"
   }
 }

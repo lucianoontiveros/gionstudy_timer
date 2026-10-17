@@ -57,6 +57,23 @@ La aplicación responde a los siguientes comandos en el chat de Twitch:
 | `!codigo [token]` | Actualiza el código QR | `!codigo ABC123` |
 | `!sala` o `!room` | Muestra información de la sala de estudio | `!sala` |
 
+### Tareas personales
+
+Cada usuario puede administrar hasta 10 tareas de hasta 120 caracteres con estos comandos cortos:
+
+| Comando | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `!add <descripción>` | Agrega una tarea propia | `!add Leer el capítulo 2` |
+| `!list` | Lista las tareas propias y sus IDs de hasta 4 caracteres | `!list` |
+| `!edit <id> <descripción>` | Edita una tarea propia | `!edit a1b2 Repasar apuntes` |
+| `!complete <id>` | Marca una tarea propia como completada | `!complete a1b2` |
+| `!del <id>` | Elimina una tarea propia | `!del a1b2` |
+| `!done` | Marca como completada la primera tarea pendiente agregada | `!done` |
+
+Los comandos anteriores `!tarea agregar`, `!tarea listar`, `!tarea editar`, `!tarea completar` y `!tarea eliminar` siguen disponibles. Al actualizar, los IDs largos de tareas ya guardadas se reemplazan automáticamente por IDs únicos de hasta 4 caracteres.
+
+Las tareas se guardan en `localStorage` bajo la clave `gionstudyTasks`, separadas por nombre de usuario de Twitch. El almacenamiento pertenece a ese navegador y origen: no sincroniza datos entre computadoras o navegadores. Las operaciones exitosas muestran durante 7 segundos una presentación debajo del timer; si llegan más operaciones, se presentan en orden sin reemplazar la que ya está visible.
+
 ## Funcionalidades
 
 1. **Temporizador Pomodoro**: 

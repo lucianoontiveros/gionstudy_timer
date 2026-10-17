@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { twitch_controller } from "../controller/twitch_controller";
+import { rememberChatMessage } from "../controller/chat_message_deduplicator";
+import { handleTaskCommand } from "../controller/task_commands";
+import { createTaskStore } from "../controller/task_store";
 
 const AUTH_FAILURE_PATTERN =
   /login unsuccessful|login authentication failed|error logging in|improperly formatted auth/i;
@@ -16,14 +19,17 @@ const isInvalidUsername = (reason) => {
   return typeof message === "string" && INVALID_USERNAME_PATTERN.test(message);
 };
 
-export const useTwitchConnection = (timerHandlers) => {
+export const useTwitchConnection = (timerHandlers, onTaskPresentation) => {
   const Client = useRef(null);
   const greetedUsers = useRef(new Set());
+  const handledTaskMessages = useRef(new Set());
   const qrValueRef = useRef("");
   const handlersRef = useRef(timerHandlers);
+  const taskPresentationRef = useRef(onTaskPresentation);
   const [connectionStatus, setConnectionStatus] = useState("connecting");
 
   handlersRef.current = timerHandlers;
+  taskPresentationRef.current = onTaskPresentation;
 
   useEffect(() => {
     let active = true;
@@ -31,6 +37,7 @@ export const useTwitchConnection = (timerHandlers) => {
     let retryBlocked = false;
     let reconnectTimer = null;
     let reconnectAttempts = 0;
+    const taskStore = createTaskStore();
 
     const client = twitch_controller();
     Client.current = client;
@@ -120,7 +127,7 @@ export const useTwitchConnection = (timerHandlers) => {
     const onMessage = (chan, tags, message, self) => {
       if (self) return;
 
-      const args = message.split(" ");
+      const args = message.trim().split(/\s+/);
       const command = args[0].toLowerCase();
       const username = tags.username;
       const isSub = tags.badges?.subscriber;
@@ -152,6 +159,27 @@ export const useTwitchConnection = (timerHandlers) => {
             : "";
 
         client.say(chan, mensajeGeneral + mensajeSubs + mensajeMod + mensajeVid);
+      }
+
+      if (
+        ["!tarea", "!add", "!list", "!edit", "!complete", "!del", "!done"].includes(
+          command
+        )
+      ) {
+        if (rememberChatMessage(handledTaskMessages.current, tags.id)) return;
+
+        const result = handleTaskCommand(message, username, taskStore);
+        if (!result) return;
+
+        for (const reply of result.replies) {
+          client.say(chan, reply).catch(() => {
+            console.warn("Could not send a task command response to Twitch chat.");
+          });
+        }
+        if (result.presentation) {
+          taskPresentationRef.current?.(result.presentation);
+        }
+        return;
       }
 
       if (!message.startsWith("!")) return;
