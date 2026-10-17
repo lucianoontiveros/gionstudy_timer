@@ -1,6 +1,6 @@
 # 🔧 Configuración de Twitch API - Guía Completa
 
-## 🚨 **Problema Actual: Error `Not connected to server`**
+## Configuración y diagnóstico de Twitch
 
 Tu archivo `.env` contiene valores placeholder que deben ser reemplazados con tus credenciales reales.
 
@@ -45,38 +45,35 @@ Asegúrate de que:
 - Tienes permisos para enviar mensajes al canal
 - El nombre del canal está en minúsculas
 
-## 🔍 **Troubleshooting**
+## 🔍 Diagnóstico
 
 ### **Error: `Not connected to server`**
-- **Causa**: Credenciales inválidas o token expirado
-- **Solución**: Regenera token OAuth
+- **Causa posible**: interrupción de red, cierre del WebSocket o indisponibilidad temporal de Twitch.
+- **Solución**: el timer reintenta automáticamente con espera progresiva (hasta 30 segundos entre intentos) mientras la fuente siga activa. No vuelvas a autorizar por este error.
 
 ### **Error: `Login authentication failed`**
-- **Causa**: Token OAuth incorrecto
-- **Solución**: Verifica formato `oauth:xxxxxxxx`
+- **Causa**: Twitch rechazó las credenciales IRC. La conexión se detiene y el indicador muestra **Autorización requerida**.
+- **Solución**: verifica que el token corresponda al usuario del bot y que siga siendo válido/revocación no haya ocurrido. Actualiza `VITE_APP_PASSWORD` y reconstruye o reinicia la aplicación con el entorno actualizado. El timer no puede renovar este token: la configuración actual solo contiene un token de acceso IRC, no un flujo OAuth con refresh token.
 
 ### **Error: No se encuentra variables**
 - **Causa**: Archivo `.env` no configurado
 - **Solución**: Completa las variables requeridas
 
-## 🧪 **Test de Conexión**
+Las variables `VITE_*` se incorporan al JavaScript que ejecuta el navegador. No guardes el `.env` en el repositorio ni compartas el bundle si contiene credenciales; utiliza una cuenta de bot y un token con los permisos mínimos necesarios.
 
-Después de configurar, reinicia tu servidor y revisa la consola:
+## 🧪 Verificar la conexión
 
-```javascript
-// Deberías ver:
-✅ Configurando cliente de Twitch con: {username: "tu_usuario", channels: "tu_canal"}
-🎉 Conexión establecida exitosamente
-✅ Conectado a Twitch correctamente
-📍 Servidor: irc.chat.twitch.tv:443
-```
+Después de configurar, reinicia tu servidor y revisa el indicador discreto **Twitch** en la esquina superior derecha:
+
+Debe cambiar de **Conectando** a **Conectado**. Ante una interrupción transitoria mostrará **Reconectando** y volverá a **Conectado** si se recupera el chat. Los comandos y los timers continúan con el mismo estado durante la reconexión.
 
 ## 🚀 **Verificación Final**
 
 1. **Reinicia el servidor**: `npm run dev`
-2. **Abre la consola del navegador**
-3. **Busca los mensajes de conexión**
-4. **Prueba enviar un mensaje** con `!start` en el chat
+2. **Abre la consola del navegador** para ver errores de conexión sin credenciales.
+3. **Comprueba el indicador** de estado.
+4. **Prueba un comando** como `!start` en el chat.
+5. **Recarga o cambia de escena en OBS** y comprueba que el estado vuelva a **Conectado** sin reiniciar el timer.
 
 ## 📞 **Soporte**
 

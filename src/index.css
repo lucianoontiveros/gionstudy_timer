@@ -57,6 +57,38 @@ body {
   width: 800px;
 }
 
+.twitch-status {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.65);
+  color: var(--color-texto-secundario);
+  font-size: 12px;
+}
+
+.twitch-status__indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f0ad4e;
+}
+
+.twitch-status--connected .twitch-status__indicator {
+  background: #58c477;
+}
+
+.twitch-status--disconnected .twitch-status__indicator,
+.twitch-status--authorization-required .twitch-status__indicator,
+.twitch-status--configuration-error .twitch-status__indicator {
+  background: #e05d5d;
+}
+
 /* ============================= */
 /* ELEMENTOS SECCIÓN PRINCIPAL   */
 /* ============================= */

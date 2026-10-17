@@ -126,6 +126,7 @@ La aplicación responde a los siguientes comandos en el chat de Twitch:
    VITE_APP_PASSWORD=oauth:tu_token_twitch
    VITE_APP_CHANNELS=cuartodechenz
    ```
+   Las variables `VITE_*` quedan incluidas en el bundle del navegador; no subas el archivo `.env` ni compartas una compilación que contenga credenciales.
 
 4. **Iniciar el Servidor de Desarrollo**
    ```bash
@@ -149,6 +150,9 @@ La aplicación se conecta al chat de Twitch mediante la API de tmi.js, permitien
 - Control del temporizador mediante comandos de chat
 - Mensajes automáticos en diferentes fases del temporizador
 - Saludos personalizados para nuevos usuarios, suscriptores y moderadores
+- Reconexión automática al chat con espera progresiva cuando ocurre una interrupción transitoria
+
+La conexión de chat utiliza un token IRC configurado en `VITE_APP_PASSWORD`. Los errores de red no requieren volver a autorizar. Si Twitch rechaza explícitamente las credenciales, el overlay indicará que hace falta autorización; esta configuración no incluye un flujo para renovar tokens automáticamente.
 
 ### Configuración de la Cuenta de Bot
 1. Crea una cuenta de desarrollador en [Twitch Developer Console](https://dev.twitch.tv/console)

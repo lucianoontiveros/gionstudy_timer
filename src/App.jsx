@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
 import { formatTime } from "./components/utils/formatTime";
 import News from "./components/News";
@@ -39,18 +39,27 @@ const App = () => {
   }, []);
 
   // Twitch connection hook
-  const { qrValueRef } = useTwitchConnection(timer);
+  const { connectionStatus } = useTwitchConnection(timer);
 
-  // Efecto que reacciona cuando timeLeft llega a 0 por fuera del tick (solo para mensaje final)
-  useEffect(() => {
-    if (timeLeft <= 0 && phase === "🌳HEMOS TERMINADO🌳" && timer.isRunning) {
-      const channel = import.meta.env.VITE_APP_CHANNEL || "gionstudy";
-      // Mensaje final se maneja en el hook de Twitch
-    }
-  }, [timeLeft, phase, timer.isRunning]);
+  const connectionStatusLabels = {
+    connecting: "Conectando",
+    connected: "Conectado",
+    reconnecting: "Reconectando",
+    disconnected: "Desconectado",
+    "authorization-required": "Autorización requerida",
+    "configuration-error": "Configuración requerida",
+  };
 
   return (
     <div className="container">
+      <div
+        className={`twitch-status twitch-status--${connectionStatus}`}
+        role="status"
+        aria-live="polite"
+      >
+        <span className="twitch-status__indicator" aria-hidden="true" />
+        Twitch: {connectionStatusLabels[connectionStatus]}
+      </div>
       <div className="element_1">
         <Qrcode token={qrValue} />
       </div>
