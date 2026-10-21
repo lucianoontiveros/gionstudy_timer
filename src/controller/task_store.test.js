@@ -120,7 +120,7 @@ test("rejects empty and overlong descriptions", () => {
   assert.equal(store.list("alice").tasks.length, 0);
 });
 
-test("enforces ten stored tasks including completed tasks and frees a slot on delete", () => {
+test("keeps ten tasks and replaces the oldest completed task when adding at capacity", () => {
   const store = createTaskStore(createMemoryStorage());
   const tasks = [];
   for (let index = 0; index < MAX_TASKS_PER_USER; index += 1) {
@@ -130,9 +130,21 @@ test("enforces ten stored tasks including completed tasks and frees a slot on de
   }
 
   assert.equal(store.complete("alice", tasks[0].id).ok, true);
+  const added = store.add("alice", "Replacement task");
+  assert.equal(added.ok, true);
+  assert.equal(added.replacedTask.id, tasks[0].id);
+  assert.equal(added.tasks.length, MAX_TASKS_PER_USER);
+  assert.equal(added.tasks.some((task) => task.id === tasks[0].id), false);
+  assert.equal(added.tasks.at(-1).description, "Replacement task");
+});
+
+test("does not allow adding above the limit when all tasks are pending", () => {
+  const store = createTaskStore(createMemoryStorage());
+  for (let index = 0; index < MAX_TASKS_PER_USER; index += 1) {
+    assert.equal(store.add("alice", `Task ${index}`).ok, true);
+  }
+
   assert.equal(store.add("alice", "Task eleven").error, "task-limit-reached");
-  assert.equal(store.remove("alice", tasks[1].id).ok, true);
-  assert.equal(store.add("alice", "Replacement task").ok, true);
   assert.equal(store.list("alice").tasks.length, MAX_TASKS_PER_USER);
 });
 

@@ -10,7 +10,7 @@ const errorMessages = {
   "invalid-user": "No pude identificar tu usuario de Twitch.",
   "empty-description": "La descripción no puede estar vacía.",
   "description-too-long": `La descripción no puede superar ${MAX_TASK_DESCRIPTION_LENGTH} caracteres.`,
-  "task-limit-reached": `Ya tienes ${MAX_TASKS_PER_USER} tareas. Elimina una antes de agregar otra.`,
+  "task-limit-reached": `Ya tienes ${MAX_TASKS_PER_USER} tareas pendientes. Completa una antes de agregar otra.`,
   "task-not-found": "No encontré esa tarea entre las tuyas.",
   "task-already-completed": "Esa tarea ya está completada.",
   "no-pending-tasks": "No tienes tareas pendientes para completar.",
@@ -85,8 +85,12 @@ export const handleTaskCommand = (message, username, store) => {
     case "agregar":
       result = store.add(normalizedUser, rest);
       operation = "added";
-      reply = (task, tasks) =>
-        `@${normalizedUser}, tarea ${task.id} agregada (${tasks.length}/${MAX_TASKS_PER_USER}).`;
+      reply = (task, tasks, replacedTask) =>
+        `@${normalizedUser}, tarea ${task.id} agregada (${tasks.length}/${MAX_TASKS_PER_USER}).${
+          replacedTask
+            ? ` Se retiró la tarea completada ${replacedTask.id} para dejarle espacio.`
+            : ""
+        }`;
       break;
     case "editar": {
       const [id, ...descriptionParts] = rest.trim().split(/\s+/);
@@ -158,7 +162,7 @@ export const handleTaskCommand = (message, username, store) => {
   }
 
   return {
-    replies: [reply(result.task, result.tasks)],
+    replies: [reply(result.task, result.tasks, result.replacedTask)],
     presentation: {
       username: normalizedUser,
       operation,

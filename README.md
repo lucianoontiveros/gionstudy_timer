@@ -59,7 +59,7 @@ La aplicación responde a los siguientes comandos en el chat de Twitch:
 
 ### Tareas personales
 
-Cada usuario puede administrar hasta 10 tareas de hasta 120 caracteres con estos comandos cortos:
+Cada usuario puede administrar hasta 10 tareas de hasta 120 caracteres con estos comandos cortos. Si se alcanza el tope, `!add` reemplaza la tarea completada más antigua; si todas siguen pendientes, primero hay que completar o eliminar una.
 
 | Comando | Descripción | Ejemplo |
 |---------|-------------|---------|

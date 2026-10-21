@@ -199,6 +199,9 @@ export const createTaskStore = (
       username: normalized,
       tasks: mutation.tasks.map((task) => ({ ...task })),
       task: mutation.task ? { ...mutation.task } : undefined,
+      replacedTask: mutation.replacedTask
+        ? { ...mutation.replacedTask }
+        : undefined,
     };
   };
 
@@ -214,7 +217,20 @@ export const createTaskStore = (
       }
 
       return mutateUserTasks(username, (tasks, users, ownerId) => {
+        let tasksForAdd = tasks;
+        let replacedTask;
         if (tasks.length >= MAX_TASKS_PER_USER) {
+          const completedIndex = tasks.findIndex(
+            (task) => task.status === "completed"
+          );
+          if (completedIndex === -1) {
+            return failure("task-limit-reached");
+          }
+          replacedTask = tasks[completedIndex];
+          tasksForAdd = tasks.filter((_, index) => index !== completedIndex);
+        }
+
+        if (tasksForAdd.length >= MAX_TASKS_PER_USER) {
           return failure("task-limit-reached");
         }
 
@@ -249,7 +265,12 @@ export const createTaskStore = (
           status: "pending",
           createdAt: new Date().toISOString(),
         };
-        return { ok: true, tasks: [...tasks, task], task };
+        return {
+          ok: true,
+          tasks: [...tasksForAdd, task],
+          task,
+          replacedTask,
+        };
       });
     },
     edit(username, id, description) {
