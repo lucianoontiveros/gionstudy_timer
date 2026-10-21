@@ -3,8 +3,10 @@ import "./index.css";
 import { formatTime } from "./components/utils/formatTime";
 import News from "./components/News";
 import Qrcode from "./components/Qrcode";
+import TaskPresentation from "./components/TaskPresentation";
 import { useTimer } from "./hooks/useTimer";
 import { useTwitchConnection } from "./hooks/useTwitchConnection";
+import { useTaskPresentationQueue } from "./hooks/useTaskPresentationQueue";
 
 const App = () => {
   const [aviso, setAviso] = useState("");
@@ -38,8 +40,12 @@ const App = () => {
     return () => clearInterval(id);
   }, []);
 
-  // Twitch connection hook
-  const { connectionStatus } = useTwitchConnection(timer);
+  const {
+    presentation,
+    enqueuePresentation,
+    markBackgroundUnavailable,
+  } = useTaskPresentationQueue();
+  const { connectionStatus } = useTwitchConnection(timer, enqueuePresentation);
 
   const connectionStatusLabels = {
     connecting: "Conectando",
@@ -94,6 +100,15 @@ const App = () => {
           {currentDate} | {currentTime} | {location}
         </span>
       </div>
+      <TaskPresentation
+        key={
+          presentation
+            ? `${presentation.username}-${presentation.operation}-${presentation.background}`
+            : "no-task-presentation"
+        }
+        presentation={presentation}
+        onBackgroundError={markBackgroundUnavailable}
+      />
     </div>
   );
 };
